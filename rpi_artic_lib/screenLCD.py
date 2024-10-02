@@ -1,6 +1,6 @@
 import time
-import rpi_artic_lib.GPIO.output as output
-import rpi_artic_lib.GPIO.port as port
+from rpi_artic_lib.GPIO import output
+from rpi_artic_lib.GPIO import port
 
 # Constants
 # Oder size
@@ -46,24 +46,28 @@ RW_READ: bool = True
 
 
 class LCDScreen:
-    def __init__(self,
-                 pinNumberRS: int,
-                 pinNumberRW: int,
-                 pinNumberEnable: int,
-                 pinNumbersDatabus: list[int]) -> type[None]:
+    def __init__(
+        self,
+        pinNumberRS: int,
+        pinNumberRW: int,
+        pinNumberEnable: int,
+        pinNumbersDatabus: list[int],
+    ) -> type[None]:
         self.setPinRS(pinNumberRS)
         self.setPinRW(pinNumberRW)
         self.setPinEnable(pinNumberEnable)
         self.setDatabus(pinNumbersDatabus)
 
-    def screenInit(self,
-                   mode: bytes = BYTE,
-                   lines: bytes = LINES2,
-                   dots: bytes = DOTS5x8,
-                   cursorMode: int = NO_CURSOR_NO_BLINK,
-                   cursorDirection: bytes = INCREMENT,
-                   scroll: bytes = STATIC_SCREEN,
-                   display: bytes = DISPLAY_ON) -> type[None]:
+    def screenInit(
+        self,
+        mode: bytes = BYTE,
+        lines: bytes = LINES2,
+        dots: bytes = DOTS5x8,
+        cursorMode: int = NO_CURSOR_NO_BLINK,
+        cursorDirection: bytes = INCREMENT,
+        scroll: bytes = STATIC_SCREEN,
+        display: bytes = DISPLAY_ON,
+    ) -> type[None]:
         self.functionSet(mode, lines, dots)
         self.displayControl(display, cursorMode)
         self.entryModeSet(cursorDirection, scroll)
@@ -148,12 +152,10 @@ class LCDScreen:
         instruction = DISPLAY_CONTROL | (display << 2) | (cursor << 1) | blink
         self.sendInstuction(instruction)
 
-    def cursorDisplayShift(self, direction: bytes,
-                           scroll: bytes) -> type[None]:
+    def cursorDisplayShift(self, direction: bytes, scroll: bytes) -> type[None]:
         self.sendInstuction(CURSOR_DISPLAY_SHIFT | (direction << 2) | scroll)
 
-    def functionSet(self, DataLength: bytes, lines: bytes,
-                    dots: bytes) -> type[None]:
+    def functionSet(self, DataLength: bytes, lines: bytes, dots: bytes) -> type[None]:
         instruction = FUNCTION_SET | (DataLength << 4) | (lines << 3)
         instruction = instruction | (dots << 2)
         self.sendInstuction(instruction)

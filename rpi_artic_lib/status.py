@@ -8,9 +8,9 @@ class Board:
 
     def getTemperature(self) -> float:
         temp = None
-        err, msg = subprocess.getstatusoutput('vcgencmd measure_temp')
+        err, msg = subprocess.getstatusoutput("vcgencmd measure_temp")
         if not err:
-            m = re.search(r'-?\d\.?\d*', msg)   # a solution with a  regex
+            m = re.search(r"-?\d\.?\d*", msg)  # a solution with a  regex
             try:
                 temp = float(m.group())
             except ValueError:

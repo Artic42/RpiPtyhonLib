@@ -1,5 +1,5 @@
-import RPi.GPIO as GPIO
-import rpi_artic_lib.GPIO.inout as inout
+from RPi import GPIO
+from rpi_artic_lib.GPIO import inout
 
 
 OUTPUT = inout.OUTPUT
@@ -7,8 +7,13 @@ INPUT = inout.INPUT
 
 
 class Port:
-    def __init__(self, pins: list[int], mode: int,
-                 initial_value: bytes = 0x00, pull_up_down: int = GPIO.PUD_UP):
+    def __init__(
+        self,
+        pins: list[int],
+        mode: int,
+        initial_value: bytes = 0x00,
+        pull_up_down: int = GPIO.PUD_UP,
+    ):
         self.pins: list[inout.InOut] = []
         for pin in pins:
             pinInstance: inout.InOut = inout.InOut(pin, mode, False)

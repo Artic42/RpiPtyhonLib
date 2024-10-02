@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+from RPi import GPIO
 from rpi_artic_lib.GPIO import input
 from rpi_artic_lib.GPIO import output
 
@@ -8,8 +8,13 @@ OUTPUT = 2
 
 
 class InOut(input.Input, output):
-    def __init__(self, pin: int, direction:  int, initial_state: bool = False,
-                 pull_up_down: int = GPIO.PUD_UP) -> None:
+    def __init__(
+        self,
+        pin: int,
+        direction: int,
+        initial_state: bool = False,
+        pull_up_down: int = GPIO.PUD_UP,
+    ) -> None:
         self.pin = pin
         self.direction = direction
         self.pull_up_down = pull_up_down

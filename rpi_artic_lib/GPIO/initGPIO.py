@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+from RPi import GPIO
 
 
 def initGPIO(mode=GPIO.BCM, warnings: bool = False) -> type[None]:
