@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rpi-artic-lib"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python library that includes my standar python library and a set of modules exclusive to the Raspberry PI"
 authors = ["Artic42 <main@artic42.com>"]
 license = "MIT License"
