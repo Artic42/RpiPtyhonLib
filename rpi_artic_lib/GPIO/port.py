@@ -2,6 +2,10 @@ import RPi.GPIO as GPIO
 import rpi_artic_lib.GPIO.inout as inout
 
 
+OUTPUT = inout.OUTPUT
+INPUT = inout.INPUT
+
+
 class Port:
     def __init__(self, pins: list[int], mode: int,
                  initial_value: bytes = 0x00, pull_up_down: int = GPIO.PUD_UP):
@@ -11,13 +15,12 @@ class Port:
             self.pins.append(pinInstance)
         if mode == inout.OUTPUT:
             self.setAsOutput(initial_value)
-            self.write(initial_value)
         else:
             self.setAsInput(pull_up_down)
 
-    def write(self, value: bytes) -> type[None]:
+    def write(self, value: int) -> type[None]:
         for i in range(len(self.pins)):
-            mask = 0x01 << i
+            mask: int = int(0x01 << i)
             self.pins[i].writeByte(value & mask)
 
     def read(self) -> bytes:
