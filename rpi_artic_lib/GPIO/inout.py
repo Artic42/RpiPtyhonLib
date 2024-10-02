@@ -7,7 +7,7 @@ INPUT = 1
 OUTPUT = 2
 
 
-class InOut(input.Input, output):
+class InOut(input.Input, output.Output):
     def __init__(
         self,
         pin: int,

@@ -59,18 +59,20 @@ class LCDScreen:
         self.setDatabus(pinNumbersDatabus)
 
     def screenInit(
-        self,
-        mode: bytes = BYTE,
-        lines: bytes = LINES2,
-        dots: bytes = DOTS5x8,
-        cursorMode: int = NO_CURSOR_NO_BLINK,
-        cursorDirection: bytes = INCREMENT,
-        scroll: bytes = STATIC_SCREEN,
-        display: bytes = DISPLAY_ON,
-    ) -> type[None]:
+            self,
+            mode: bytes = BYTE,
+            lines: bytes = LINES2,
+            dots: bytes = DOTS5x8,
+            cursorMode: int = NO_CURSOR_NO_BLINK,
+            cursorDirection: bytes = INCREMENT,
+            scroll: bytes = STATIC_SCREEN,
+            display: bytes = DISPLAY_ON,
+            ) -> type[None]:
         self.functionSet(mode, lines, dots)
         self.displayControl(display, cursorMode)
         self.entryModeSet(cursorDirection, scroll)
+        self.clearDisplay()
+        self.returnHome()
 
     def setPinEnable(self, pinNumber: int) -> type[None]:
         pin = output.Output(pinNumber, initial_state=False)
@@ -111,7 +113,6 @@ class LCDScreen:
     def sendString(self, string: str) -> type[None]:
         for char in string:
             self.sendChar(char)
-            time.sleep(0.001)
 
     def readBusyFlag(self) -> bool:
         self.databus.setAsInput()
