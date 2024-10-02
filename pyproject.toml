@@ -10,11 +10,9 @@ readme = "README.md"
 python = "^3.11"
 articlib = "^0.2.3"
 rpi-gpio = "^0.7.1"
-types-rpi-gpio = "^0.7.0.20240314"
 
 [tool.poetry.group.dev.dependencies]
 flake8-pyproject = "^1.2.3"
-mypy = "^1.11.2"
 flake8 = "^7.1.1"
 
 [build-system]
@@ -23,3 +21,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.flake8]
 exclude = [".venv", ".git", "__pycache__"]
+
+[tool.mypy.RPi]
+ignore_missing_imports = true
